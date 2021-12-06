@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Console Tricks!</title>
 </head>
+
 <body>
 
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
@@ -17,30 +19,74 @@
       p.style.fontSize = '50px';
     }
 
+    //Elements > 요소 우클릭 > Break on > attribute modificatons
+    // 해당 요소에 debugger 처리 
+
     // Regular
+    console.log('hello');
 
     // Interpolated
+    console.log('hello I am a %s string!', '@');
 
     // Styled
+    console.log('%c I am some great text', 'font-size:50px; background:red; text-shadow: 10px 10px 0 blue')
 
     // warning!
+    console.warn('oh nooo');
 
     // Error :|
+    console.error('fuck!');
 
     // Info
+    console.info('ice americao in doran')
 
     // Testing
+    console.assert(1 === 2, 'you are wring')
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'that is wrong')
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    console.log(p);
+    console.dir(p);
 
     // Grouping together
-
+    dogs.map(dog => {
+      {
+        console.group(`${dog.name}`);
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`);
+        console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+        console.groupEnd(`${dog.name}`)
+      }
+    })
     // counting
-
+    console.count('wes');
+    console.count('wes');
+    console.count('wes');
+    console.count('steve');
+    console.count('wes');
+    console.count('steve');
+    console.count('wes');
+    console.count('wes');
+    console.count('wes');
+    console.count('steve');
+    console.count('wes');
+    console.count('steve');
+    
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+    .then(data=>data.json())
+    .then(data =>{
+      console.timeEnd('fetching data');
+      console.log(data);
+    })
+
 
   </script>
 </body>
+
 </html>
