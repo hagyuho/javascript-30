@@ -8,11 +8,6 @@
 </head>
 
 <body>
-  <!--
-      Fish SVG Cred:
-      https://thenounproject.com/search/?q=fish&i=589236
-   -->
-
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
     viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
     <g>
@@ -29,63 +24,100 @@
       <circle cx="398.8" cy="273.8" r="14.1" />
     </g>
   </svg>
-
-  <div class="wrapper">
-    <h2>LOCAL TAPAS</h2>
-    <p></p>
-    <ul class="plates">
-      <li>Loading Tapas...</li>
-    </ul>
-    <form class="add-items">
-      <input type="text" name="item" placeholder="Item Name" required>
-      <input type="submit" value="+ Add Item">
-    </form>
+  <div class="container">
+    <div class="wrapper">
+      <h2>JS Array</h2>
+      <ul class="plates-array">
+        <li>Loading storage...</li>
+      </ul>
+    </div>
+    <div class="wrapper">
+      <h2>Session Storage</h2>
+      <ul class="plates-session">
+        <li>Loading storage...</li>
+      </ul>
+    </div>
+    <div class="wrapper">
+      <h2>Local Storage</h2>
+      <ul class="plates-local">
+        <li>Loading storage...</li>
+      </ul>
+    </div>
   </div>
+  <form class="add-items">
+    <input type="text" name="item" placeholder="Item Name" required>
+    <input type="submit" value="+ Add Item">
+  </form>
 
   <script>
-    const addItems = document.querySelector('.add-items');
-    const itemsList = document.querySelector('.plates');
-    const items = JSON.parse(localStorage.getItem('items')) || [];
 
-    function emit(target, eventName, detail) {
-      const event = new CustomEvent(eventName, { detail })
-      target.dispatchEvent(event);
-    }
+    // get $elements
+    const $addItems = document.querySelector('.add-items');
 
+    const $jsArray = document.querySelector('.plates-array')
+    const $selssionitemsList = document.querySelector('.plates-session');
+    const $localitemsList = document.querySelector('.plates-local');
+
+    const jsItems = [];
+    const sessionItems = JSON.parse(sessionStorage.getItem('items')) || [];
+    const localItems = JSON.parse(localStorage.getItem('items')) || [];
+
+
+
+    // event : Add Item to local storage 
     function addItem(event) {
+      // 1. get text from input $element and make item object
       event.preventDefault();
       const text = (this.querySelector('[name=item]')).value;
       const item = {
         text: text,
         clicked: false
       }
-      items.push(item)
-      localStorage.setItem('items', JSON.stringify(items))
-      emit(document.body, "@add");
+      // 2. push item to storage
+      jsItems.push(item)
+      sessionItems.push(item)
+      sessionStorage.setItem('items', JSON.stringify(sessionItems))
+      localItems.push(item)
+      localStorage.setItem('items', JSON.stringify(localItems))
+
+      // 3. render again
+      showItem()
     }
 
+
+    // event : Render html $element
     function showItem() {
-      itemsList.innerHTML = items.map((item, i) => {
+
+      $jsArray.innerHTML = jsItems.map((item, i) => {
         return `
         <li>
-          <input type="checkbox" data-index=${i} id="item${i}" ${item.clicked ? 'checked' : ''} />
           <label for="item${i}">${item.text}</label>
         </li>
       `;
       }).join('');
+
+      $selssionitemsList.innerHTML = sessionItems.map((item, i) => {
+        return `
+        <li>
+          <label for="item${i}">${item.text}</label>
+        </li>
+      `;
+      }).join('');
+
+      $localitemsList.innerHTML = localItems.map((item, i) => {
+        return `
+        <li>
+          <label for="item${i}">${item.text}</label>
+        </li>
+      `;
+      }).join('');
+
     }
 
-    function toggleDone(e) {
-      if (!e.target.matches('input')) return; // skip this unless it's an input
-      const el = e.target;
-      const index = el.dataset.index;
-      items[index].clicked = !items[index].clicked;
-      localStorage.setItem('items', JSON.stringify(items));
-    }
 
-    addItems.addEventListener("submit", addItem)
-    itemsList.addEventListener("click",toggleDone)
-    document.body.addEventListener("@add", showItem)
+    showItem()
+
+    $addItems.addEventListener("submit", addItem)
   </script>
 
 

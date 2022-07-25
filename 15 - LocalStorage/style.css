@@ -25,6 +25,11 @@ svg {
   margin-bottom: 50px;
 }
 
+.container {
+  display:flex;
+  flex-direction: row;
+}
+
 .wrapper {
   padding: 20px;
   max-width: 350px;
@@ -38,37 +43,38 @@ h2 {
   font-weight: 200;
 }
 
-.plates {
+.plates-local {
   margin: 0;
   padding: 0;
   text-align: left;
   list-style: none;
 }
 
-.plates li {
+.plates-local li {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px 0;
   font-weight: 100;
   display: flex;
 }
 
-.plates label {
+.plates-local label {
   flex: 1;
   cursor: pointer;
 }
 
-.plates input {
+.plates-local input {
   display: none;
 }
 
-.plates input + label:before {
+.plates-local input + label:before {
   content: "⬜️";
   margin-right: 10px;
 }
 
-.plates input:checked + label:before {
+.plates-local input:checked + label:before {
   content: "🌮";
 }
+
 
 .add-items {
   margin-top: 20px;
@@ -78,4 +84,69 @@ h2 {
   padding: 10px;
   outline: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.plates-session {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+}
+
+.plates-session li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  font-weight: 100;
+  display: flex;
+}
+
+.plates-session label {
+  flex: 1;
+  cursor: pointer;
+}
+
+.plates-session input {
+  display: none;
+}
+
+.plates-session input+label:before {
+  content: "⬜️";
+  margin-right: 10px;
+}
+
+.plates-session input:checked+label:before {
+  content: "🌮";
+}
+
+.plates-array {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+}
+
+.plates-array li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  font-weight: 100;
+  display: flex;
+}
+
+.plates-array label {
+  flex: 1;
+  cursor: pointer;
+}
+
+.plates-session input {
+  display: none;
+}
+
+.plates-array input+label:before {
+  content: "⬜️";
+  margin-right: 10px;
+}
+
+.plates-array input:checked+label:before {
+  content: "🌮";
 }
